@@ -1,6 +1,30 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@vermashanti 
+Learn Git and GitHub without any code!
+Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
+
+
+zemse
+/
+simple-lottery
+generated from zemse/smart-solidity-template
+1
+00
+ Code Issues 0 Pull requests 0 Actions Projects 0 Wiki Security Insights
+simple-lottery/test/SimpleStorage.test.js
+@zemse zemse add rollno and test cases
+b85f0c6 22 minutes ago
+115 lines (84 sloc)  4.36 KB
+  
 /*
   Author: Soham Zemse (https://github.com/zemse)
-
   In this file you should write tests for your smart contract as you progress in developing your smart contract. For reference of Mocha testing framework, you can check out https://devdocs.io/mocha/.
 */
 
@@ -88,5 +112,40 @@ describe('Simple Storage Contract', () => {
         'value set must be able to get'
       );
     });
+
+    it('should have initial value of rollNumber as 0', async() => {
+      const output = await simpleStorageInstance.functions.rollNumber();
+
+      // console.log({output});
+      assert.ok(output.eq(0), 'rollNumber should be equal to 0 as it is not initialised yet');
+    });
+
+    it('when update function is called, rollNumber storage should be updated', async() => {
+      const newRollNo = 345;
+
+      const rollNumberBefore = await simpleStorageInstance.functions.rollNumber();
+      console.log({rollNumberBefore});
+
+      const tx = await simpleStorageInstance.functions.updateRollNumber(newRollNo);
+      await tx.wait();
+
+      const rollNumberAfter = await simpleStorageInstance.functions.rollNumber();
+      console.log({rollNumberAfter});
+
+      assert.ok(rollNumberAfter.eq(newRollNo), 'rollNumber storage should be updated with new value');
+
+    });
   });
 });
+© 2020 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
